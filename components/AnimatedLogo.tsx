@@ -66,8 +66,12 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete }) => {
           </div>
         ) : (
           <motion.video 
-            autoPlay 
+            autoPlay
             muted
+            playsInline
+            
+            webkit-playsinline="true"
+            preload="auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

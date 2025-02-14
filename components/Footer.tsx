@@ -39,6 +39,8 @@ const Footer = () => {
         muted
         loop
         playsInline
+        webkit-playsinline="true"
+        preload="auto"
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:w-1/2 h-full md:h-1/2 object-cover opacity-30"
       >
         <source src={darkLogoPeekUrl} type="video/mp4" />

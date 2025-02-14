@@ -122,6 +122,9 @@ const AnimatedLanding = () => {
           muted
           loop
           playsInline
+          
+          webkit-playsinline="true"
+          preload="auto"
           className="w-full h-full object-cover rounded-[2rem] sm:rounded-[2.5rem]"
         >
           <source src={heroVideoUrl} type="video/mp4" />
