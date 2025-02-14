@@ -1,14 +1,25 @@
 import { Client, Storage } from 'appwrite';
 
-const client = new Client()
-    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
+const client = new Client();
+
+// Add error handling for environment variables
+if (!process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || !process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID) {
+    console.warn('Missing Appwrite configuration');
+} else {
+    client
+        .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)
+        .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
+}
 
 export const storage = new Storage(client);
 
 // Helper function to get video URL
 export const getVideoUrl = (fileId: string) => {
-    const bucketId = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!;
+    const bucketId = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
+    if (!bucketId) {
+        console.warn('Missing bucket ID');
+        return '';
+    }
     return storage.getFileView(bucketId, fileId);
 };
 
