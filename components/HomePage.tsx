@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 const AnimatedLanding = () => {
-  const [videoLoaded, setVideoLoaded] = useState(false);
-
   // Animation variants for the video container
   const videoContainerVariants = {
     initial: {
@@ -121,7 +119,6 @@ const AnimatedLanding = () => {
           muted
           loop
           playsInline
-          onLoadedData={() => setVideoLoaded(true)}
           className="w-full h-full object-cover rounded-[2rem] sm:rounded-[2.5rem]"
         >
           <source src="/Gobelins Hero Video.mp4" type="video/mp4" />

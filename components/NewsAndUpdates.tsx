@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import image21 from "@/public/21.png";
 import image11 from "@/public/11.png";
 import image09 from "@/public/09.png";
@@ -95,11 +95,6 @@ const NewsAndUpdates = () => {
       x: direction < 0 ? 1000 : -1000,
       opacity: 0
     })
-  };
-
-  const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
   };
 
   const paginate = (newDirection: number) => {
