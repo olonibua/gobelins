@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { getVideoUrl, VIDEO_IDS } from '@/lib/appwrite';
+import { useEffect, useRef } from 'react';
 
 const textContainerVariants = {
   initial: { opacity: 0 },
@@ -29,19 +30,34 @@ const textItemVariants = {
 };
 
 const Footer = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const darkLogoPeekUrl = getVideoUrl(VIDEO_IDS.DARK_LOGO_PEEK);
+
+  useEffect(() => {
+    const playVideo = async () => {
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch (err) {
+          console.log("Autoplay failed:", err);
+        }
+      }
+    };
+    playVideo();
+  }, []);
 
   return (
     <div className="relative bg-black text-white overflow-hidden min-h-[800px]">
       {/* Background Video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        webkit-playsinline="true"
-        preload="auto"
+        controls={false}
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:w-1/2 h-full md:h-1/2 object-cover opacity-30"
+        style={{ objectFit: 'cover' }}
       >
         <source src={darkLogoPeekUrl} type="video/mp4" />
       </video>

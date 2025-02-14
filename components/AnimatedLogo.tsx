@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { getVideoUrl, VIDEO_IDS } from '@/lib/appwrite';
@@ -11,6 +11,7 @@ interface AnimatedLogoProps {
 }
 
 const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [showVideo, setShowVideo] = useState(false);
   const logoVideoUrl = getVideoUrl(VIDEO_IDS.LOGO_ZOOM);
 
@@ -31,6 +32,21 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete }) => {
       },
     },
   };
+
+  useEffect(() => {
+    const playVideo = async () => {
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch (err) {
+          console.log("Autoplay failed:", err);
+        }
+      }
+    };
+    if (showVideo) {
+      playVideo();
+    }
+  }, [showVideo]);
 
   // Handle video completion
   useEffect(() => {
@@ -66,20 +82,19 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete }) => {
           </div>
         ) : (
           <motion.video 
+            ref={videoRef}
             autoPlay
             muted
             playsInline
-            
-            webkit-playsinline="true"
-            preload="auto"
+            controls={false}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="w-full h-full object-cover"
+            style={{ objectFit: 'cover' }}
             onEnded={() => onAnimationComplete()}
           >
             <source src={logoVideoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
           </motion.video>
         )}
       </AnimatePresence>

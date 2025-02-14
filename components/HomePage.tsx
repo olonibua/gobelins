@@ -1,12 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { getVideoUrl, VIDEO_IDS } from '@/lib/appwrite';
 
 const AnimatedLanding = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoUrl = getVideoUrl(VIDEO_IDS.HERO_VIDEO);
+
+  useEffect(() => {
+    const playVideo = async () => {
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch (err) {
+          console.log("Autoplay failed:", err);
+        }
+      }
+    };
+    playVideo();
+  }, []);
 
   // Animation variants for the video container
   const videoContainerVariants = {
@@ -118,14 +132,14 @@ const AnimatedLanding = () => {
         style={{ height: "calc(100vh - 100px)" }}
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          
-          webkit-playsinline="true"
-          preload="auto"
+          controls={false}
           className="w-full h-full object-cover rounded-[2rem] sm:rounded-[2.5rem]"
+          style={{ objectFit: 'cover' }}
         >
           <source src={heroVideoUrl} type="video/mp4" />
         </video>
