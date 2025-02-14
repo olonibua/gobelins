@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { getVideoUrl, VIDEO_IDS } from '@/lib/appwrite';
 const Path = motion.path;
 
 interface AnimatedLogoProps {
@@ -11,6 +12,7 @@ interface AnimatedLogoProps {
 
 const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete }) => {
   const [showVideo, setShowVideo] = useState(false);
+  const logoVideoUrl = getVideoUrl(VIDEO_IDS.LOGO_ZOOM);
 
   const pathVariants = {
     hidden: {
@@ -72,7 +74,7 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete }) => {
             className="w-full h-full object-cover"
             onEnded={() => onAnimationComplete()}
           >
-            <source src="/Gobelins Logo Zoom.mp4" type="video/mp4" />
+            <source src={logoVideoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </motion.video>
         )}

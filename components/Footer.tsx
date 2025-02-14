@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { getVideoUrl, VIDEO_IDS } from '@/lib/appwrite';
 
 const textContainerVariants = {
   initial: { opacity: 0 },
@@ -28,6 +29,8 @@ const textItemVariants = {
 };
 
 const Footer = () => {
+  const darkLogoPeekUrl = getVideoUrl(VIDEO_IDS.DARK_LOGO_PEEK);
+
   return (
     <div className="relative bg-black text-white overflow-hidden min-h-[800px]">
       {/* Background Video */}
@@ -38,7 +41,7 @@ const Footer = () => {
         playsInline
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:w-1/2 h-full md:h-1/2 object-cover opacity-30"
       >
-        <source src="/Dark Logo Peek.mp4" type="video/mp4" />
+        <source src={darkLogoPeekUrl} type="video/mp4" />
       </video>
 
       <div className="relative z-10 max-w-[1700px] mx-auto px-4 sm:px-6 py-8 sm:py-16 md:py-24">

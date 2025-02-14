@@ -3,8 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { getVideoUrl, VIDEO_IDS } from '@/lib/appwrite';
 
 const AnimatedLanding = () => {
+  const heroVideoUrl = getVideoUrl(VIDEO_IDS.HERO_VIDEO);
+
   // Animation variants for the video container
   const videoContainerVariants = {
     initial: {
@@ -121,7 +124,7 @@ const AnimatedLanding = () => {
           playsInline
           className="w-full h-full object-cover rounded-[2rem] sm:rounded-[2.5rem]"
         >
-          <source src="/Gobelins Hero Video.mp4" type="video/mp4" />
+          <source src={heroVideoUrl} type="video/mp4" />
         </video>
 
         {/* Text Overlay - Adjusted positioning with larger padding */}
